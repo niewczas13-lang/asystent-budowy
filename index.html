@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Asystent Budowy Domu – Nowa Generacja</title>
+<style>
+  :root{
+    --bg:#0b0c10; --surface:#0f1117; --card:#121522; --text:#e8eefc; --muted:#a6b0cf;
+    --accent-1:#7c3aed; --accent-2:#06b6d4; --accent-3:#22d3ee; --accent-4:#60a5fa; --shadow:0 10px 30px rgba(0,0,0,.35); --radius:18px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:radial-gradient(1200px 800px at 15% -10%,rgba(124,58,237,.25),transparent 60%),radial-gradient(1000px 700px at 110% 10%,rgba(6,182,212,.2),transparent 60%),var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','SF Pro Text','Segoe UI',Roboto,Helvetica,Arial,sans-serif}
+  a{color:inherit}
+  header{position:relative;overflow:hidden}
+  .hero{max-width:1200px;margin:0 auto;padding:96px 24px 56px;display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+  @media(max-width:1000px){.hero{grid-template-columns:1fr;gap:28px;padding:84px 20px 40px}}
+  .logo{display:flex;align-items:center;gap:14px;margin-bottom:18px}
+  .mark{width:44px;height:44px;border-radius:12px;position:relative;background:conic-gradient(from 210deg,var(--accent-1),var(--accent-2),var(--accent-4),var(--accent-1));box-shadow:inset 0 0 24px rgba(255,255,255,.18),var(--shadow)}
+  .mark:after{content:"";position:absolute;inset:2px;border-radius:10px;background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(255,255,255,.06))}
+  .brand{font-weight:700;letter-spacing:.2px;font-size:18px;color:#e9edff}
+  h1{margin:0;font-size: clamp(40px, 6vw, 78px);line-height:1.04;font-weight:800;letter-spacing:-.02em;background:linear-gradient(90deg,var(--accent-3),#fff,var(--accent-4));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .lead{margin:14px 0 28px;color:var(--muted);font-size: clamp(16px, 1.8vw, 22px);line-height:1.6}
+  .cta{display:flex;gap:14px;flex-wrap:wrap}
+  .btn{padding:14px 20px;border-radius:14px;border:1px solid rgba(255,255,255,.08);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:var(--shadow);text-decoration:none;transition:.22s ease}
+  .btn.primary{background:linear-gradient(135deg,var(--accent-1),var(--accent-2));border-color:transparent}
+  .btn.secondary{background:linear-gradient(135deg,rgba(255,255,255,.06),rgba(255,255,255,.02))}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(0,0,0,.45)}
+  .hero-card{border-radius:24px;background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.08);padding:28px;box-shadow:var(--shadow)}
+  .pill{display:inline-flex;align-items:center;gap:10px;padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:linear-gradient(90deg,rgba(124,58,237,.18),rgba(6,182,212,.14));font-size:13px;color:#eaf3ff;margin-bottom:14px}
+  .pill .dot{width:8px;height:8px;border-radius:50%;background:var(--accent-3);box-shadow:0 0 10px var(--accent-3)}
+  .hero-list{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px}
+  .hero-item{padding:14px;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);font-size:15px;color:#dbe7ff}
+  section{max-width:1180px;margin:64px auto;padding:0 24px}
+  .section-title{font-size:34px;font-weight:800;margin-bottom:22px;letter-spacing:-.02em}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  @media(max-width:1000px){.grid{grid-template-columns:1fr}}
+  .card{padding:24px;border-radius:20px;background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.08);box-shadow:var(--shadow)}
+  .card h3{margin:0 0 10px;font-size:20px;display:flex;align-items:center;gap:10px}
+  .chip{display:inline-block;margin:8px 6px 0 0;padding:6px 10px;border-radius:999px;background:rgba(124,58,237,.16);color:#e5e7ff;font-size:12px;border:1px solid rgba(255,255,255,.08)}
+  .list{display:grid;gap:14px}
+  .list .li{padding:16px;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08)}
+  ul{margin:10px 0 0 18px;color:#cfd7ff}
+  li{margin:6px 0}
+  footer{padding:60px 24px;text-align:center;color:#9aa6d1}
+  /* MOCKUP */
+  .mock-wrap{display:grid;grid-template-columns:1.2fr .8fr;gap:26px;align-items:center}
+  @media(max-width:1000px){.mock-wrap{grid-template-columns:1fr}}
+  .device{border-radius:28px;background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.12);padding:18px;box-shadow:var(--shadow)}
+  .notch{width:120px;height:24px;background:rgba(0,0,0,.45);border-radius:0 0 14px 14px;margin:0 auto 10px}
+  .screen{border-radius:20px;background:linear-gradient(180deg,#0e1423,#0b0e17);border:1px solid rgba(255,255,255,.08);padding:18px;overflow:hidden}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .kpi{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:12px;height:84px;position:relative}
+  .bar{position:absolute;left:12px;right:12px;bottom:12px;height:8px;border-radius:8px;background:linear-gradient(90deg,var(--accent-1),var(--accent-2));transform-origin:left center;animation:grow 2.4s ease forwards}
+  .bar.b2{animation-delay:.3s}
+  .chart{height:160px;border-radius:12px;border:1px solid rgba(255,255,255,.08);margin:12px 0;position:relative;overflow:hidden}
+  .chart::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(124,58,237,.22),rgba(6,182,212,.22));filter:saturate(110%)}
+  .wave{position:absolute;left:-40%;top:0;width:140%;height:100%;background:radial-gradient(80px 120px at 10% 60%,rgba(255,255,255,.18),transparent 60%),radial-gradient(80px 120px at 40% 40%,rgba(255,255,255,.14),transparent 60%),radial-gradient(80px 120px at 70% 70%,rgba(255,255,255,.12),transparent 60%);animation:slide 6s linear infinite}
+  @keyframes slide{to{transform:translateX(40%)}}
+  @keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+  /* SIMPLE ICONS */
+  .icon{width:18px;height:18px;display:inline-block}
+</style>
+</head>
+<body>
+  <header>
+    <div class="hero">
+      <div>
+        <div class="logo"><div class="mark"></div><div class="brand">Asystent Budowy Domu</div></div>
+        <h1>Buduj mądrzej. Bez stresu. Z klasą.</h1>
+        <p class="lead">Platforma, która prowadzi Cię od działki do odbioru: harmonogram, koszty, przyłącza, kredyt, technologie i asystent AI w jednym miejscu.</p>
+        <div class="cta">
+          <a class="btn primary" href="#mvp">Funkcje MVP</a>
+          <a class="btn secondary" href="#future">Rozbudowa 2.0 / Future</a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="pill"><span class="dot"></span> Podgląd planu 24–30 miesięcy</div>
+        <div class="hero-list">
+          <div class="hero-item">✔ Automatyczny harmonogram z przypomnieniami</div>
+          <div class="hero-item">✔ Checklista formalności i generatory wniosków</div>
+          <div class="hero-item">✔ Kalkulator kosztów: MIN / ŚREDNIO / MAX</div>
+          <div class="hero-item">✔ Moduł przyłączy: trasy, studzienki, koszty</div>
+          <div class="hero-item">✔ Symulator kredytu i nadpłat</div>
+          <div class="hero-item">✔ Asystent AI – odpowiedzi na każde pytanie</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section id="mvp">
+    <div class="section-title">✅ Funkcje PEWNIAKI — MVP</div>
+    <div class="grid">
+      <div class="card"><h3><span class="icon">🗓️</span> 1) Automatyczny harmonogram</h3>
+        <p>Silnik planowania uwzględnia lokalizację, sezonowość i zależności między zadaniami.</p>
+        <ul>
+          <li>plan 24–30 mies. z etapami i kamieniami milowymi</li>
+          <li>blokady: np. „pozwolenie przed fundamentami”</li>
+          <li>przypomnienia i alerty opóźnień</li>
+          <li>procent postępu i przewidywana data zakończenia</li>
+        </ul>
+        <span class="chip">Timeline</span><span class="chip">Powiadomienia</span>
+      </div>
+      <div class="card"><h3><span class="icon">📄</span> 2) Checklista formalności</h3>
+        <p>Wszystkie kroki administracyjne w jednym miejscu + generowanie dokumentów.</p>
+        <ul>
+          <li>WZ/MPZP, mapy do celów projektowych</li>
+          <li>przyłącza (prąd, woda, kanalizacja), pozwolenie/zgłoszenie</li>
+          <li>dziennik budowy, odbiory branżowe, odbiór końcowy</li>
+          <li>formularze PDF z auto-uzupełnianiem danych</li>
+        </ul>
+        <span class="chip">PDF</span><span class="chip">Wnioski</span>
+      </div>
+      <div class="card"><h3><span class="icon">💰</span> 3) Kalkulator kosztów</h3>
+        <p>Realne widełki kosztów (materiały + robocizna), aktualizowane regionalnie.</p>
+        <ul>
+          <li>etapy: fundamenty, SSO, SSZ, instalacje, wykończenie</li>
+          <li>przyłącza, ogrodzenie, droga dojazdowa, ogród</li>
+          <li>warianty: OSZCZĘDNY / STANDARD / PREMIUM</li>
+          <li>podgląd przekroczeń i rekomendacje oszczędności</li>
+        </ul>
+        <span class="chip">Region</span><span class="chip">Materiały+robocizna</span>
+      </div>
+      <div class="card"><h3><span class="icon">🔌</span> 4) Moduł przyłączy</h3>
+        <p>Projektuje trasy, punkty rozdziału i liczy koszty dla kilku działek.</p>
+        <ul>
+          <li>schemat 2D: prąd / woda / kanalizacja</li>
+          <li>studzienki rozdzielcze, spadki, długości</li>
+          <li>materiały + opłaty do gestorów</li>
+          <li>automatyczne wnioski do operatorów</li>
+        </ul>
+        <span class="chip">Schemat</span><span class="chip">Kosztorys</span>
+      </div>
+      <div class="card"><h3><span class="icon">🏦</span> 5) Symulator kredytu</h3>
+        <p>Raty, nadpłaty i rzeczywisty koszt kredytu z wizualizacją.</p>
+        <ul>
+          <li>raty równe i malejące</li>
+          <li>nadpłaty miesięczne i jednorazowe</li>
+          <li>skrócenie okresu vs obniżenie raty</li>
+          <li>porównanie horyzontów 15/20/30 lat</li>
+        </ul>
+        <span class="chip">Nadpłaty</span><span class="chip">RRSO</span>
+      </div>
+      <div class="card"><h3><span class="icon">🤖</span> 6) Asystent AI</h3>
+        <p>Odpowiada kontekstowo, znając Twój projekt, działkę i harmonogram.</p>
+        <ul>
+          <li>pytania o materiały i technologie</li>
+          <li>wyjaśnienia przepisów i minimalnych odległości</li>
+          <li>podgląd kosztów i konsekwencji wyborów</li>
+          <li>tryb „niedzielny budowlaniec” – co sprawdzić w weekend</li>
+        </ul>
+        <span class="chip">Kontekst</span><span class="chip">Baza wiedzy</span>
+      </div>
+      <div class="card"><h3><span class="icon">📊</span> 7) Panel budżetu</h3>
+        <p>Kontrola wydatków i prognoza do końca inwestycji.</p>
+        <ul>
+          <li>wprowadzasz faktury – system aktualizuje prognozę</li>
+          <li>alerty przekroczeń i sugestie oszczędności</li>
+          <li>cash‑flow budowy i wykresy</li>
+        </ul>
+        <span class="chip">Budżet</span><span class="chip">Alerty</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="v2">
+    <div class="section-title">🔥 Funkcje do przemyślenia — 2.0</div>
+    <div class="grid">
+      <div class="card"><h3><span class="icon">📐</span> 8) Dobór projektu do działki</h3>
+        <ul>
+          <li>filtry: szer./dł. działki, strony świata, MPZP/WZ</li>
+          <li>podgląd ustawienia 2D, odległości od granic</li>
+          <li>koszty przyłączy dla wybranego projektu</li>
+        </ul>
+      </div>
+      <div class="card"><h3><span class="icon">🛒</span> 9) Ceny materiałów LIVE</h3>
+        <ul>
+          <li>Castorama / LM / PSB / OBI / hurtownie</li>
+          <li>koszyk „prosto z projektu”</li>
+          <li>alerty spadków i wzrostów cen</li>
+        </ul>
+      </div>
+      <div class="card"><h3><span class="icon">🧾</span> 10) Porównywarka wykonawców</h3>
+        <ul>
+          <li>wrzucasz PDF – AI wykrywa zawyżenia</li>
+          <li>benchmark regionalny stawek</li>
+          <li>ocena ryzyka oferty</li>
+        </ul>
+      </div>
+      <div class="card"><h3><span class="icon">📸</span> 11) Dziennik budowy online</h3>
+        <ul>
+          <li>zdjęcia, checklisty, podpisy kierownika</li>
+          <li>postęp vs plan, odbiory etapów</li>
+        </ul>
+      </div>
+      <div class="card"><h3><span class="icon">🧱</span> 12) Baza błędów budowlanych</h3>
+        <ul>
+          <li>fundamenty, mury, dach, okna, wylewki, ocieplenie</li>
+          <li>jak wykryć i jak egzekwować poprawki</li>
+        </ul>
+      </div>
+      <div class="card"><h3><span class="icon">🌿</span> 13) Moduł ogrodu</h3>
+        <ul>
+          <li>projekt i kosztorys ogrodu</li>
+          <li>nawadnianie i retencja deszczówki</li>
+          <li>tarasy, ogrodzenia, ścieżki</li>
+        </ul>
+      </div>
+      <div class="card"><h3><span class="icon">🛋️</span> 14) Moduł wnętrz</h3>
+        <ul>
+          <li>kosztorys wykończenia</li>
+          <li>moodboardy i listy materiałów</li>
+          <li>integracja z projektantami</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="future">
+    <div class="section-title">🚀 Premium / Future – przewaga na rynku</div>
+    <div class="grid">
+      <div class="card"><h3><span class="icon">🛡️</span> 15) AI jako kierownik budowy 24/7</h3>
+        <ul>
+          <li>analiza zdjęć – wykrywanie błędów i nieciągłości</li>
+          <li>ocena jakości tynków/wylewek</li>
+          <li>wsparcie przy odbiorach</li>
+        </ul>
+      </div>
+      <div class="card"><h3><span class="icon">📑</span> 16) Ścieżka kredytowa w aplikacji</h3>
+        <ul>
+          <li>symulator → porównywarka → konsultacja</li>
+          <li>generowanie dokumentów bankowych</li>
+        </ul>
+      </div>
+      <div class="card"><h3><span class="icon">🧰</span> 17) Marketplace ekip</h3>
+        <ul>
+          <li>zweryfikowani wykonawcy, opinie</li>
+          <li>escrow i gotowe umowy</li>
+        </ul>
+      </div>
+      <div class="card"><h3><span class="icon">🗂️</span> 18) Puszcza dokumentów</h3>
+        <ul>
+          <li>centralne repo wniosków, umów, protokołów i faktur</li>
+          <li>backup w chmurze i kontrola dostępu</li>
+        </ul>
+      </div>
+      <div class="card"><h3><span class="icon">🏷️</span> 19) Sklep materiałów</h3>
+        <ul>
+          <li>koszyk „z projektu”</li>
+          <li>porównanie hurtowni, śledzenie cen</li>
+        </ul>
+      </div>
+      <div class="card"><h3><span class="icon">📈</span> 20) Tryb inwestora (ROI)</h3>
+        <ul>
+          <li>ROI/najem, amortyzacja</li>
+          <li>plan finansowy inwestycji</li>
+        </ul>
+      </div>
+      <div class="card"><h3><span class="icon">🧑‍💻</span> 21) Tryb PRO (kierownik)</h3>
+        <ul>
+          <li>dziennik PRO, raporty, zgłoszenia usterek</li>
+          <li>interfejs tabletowy</li>
+        </ul>
+      </div>
+      <div class="card"><h3><span class="icon">🏗️</span> 22) Tryb dewelopera</h3>
+        <ul>
+          <li>wieloprojektowe zarządzanie</li>
+          <li>harmonogramy i koszty zbiorcze (B2B)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title">🖥️ Zrzuty aplikacji (mockup)</div>
+    <div class="mock-wrap">
+      <div class="device">
+        <div class="notch"></div>
+        <div class="screen">
+          <div class="row">
+            <div class="kpi">
+              <div style="font-size:12px;color:#9fb3ff;margin-bottom:6px">Postęp etapu</div>
+              <div class="bar" style="--val:0.72"></div>
+              <div style="position:absolute;right:12px;bottom:26px;font-size:12px;color:#e7eeff">72%</div>
+            </div>
+            <div class="kpi">
+              <div style="font-size:12px;color:#9fb3ff;margin-bottom:6px">Budżet wykorzystany</div>
+              <div class="bar b2" style="--val:0.41"></div>
+              <div style="position:absolute;right:12px;bottom:26px;font-size:12px;color:#e7eeff">41%</div>
+            </div>
+          </div>
+          <div class="chart">
+            <div class="wave"></div>
+            <div style="position:absolute;left:12px;top:10px;font-size:12px;color:#a9b7ff;opacity:.9">Saldo kredytu (prognoza)</div>
+          </div>
+          <div class="list-mini">
+            <div class="mini"><strong>🔧 Dziś wykonano:</strong> szalunki ław • zbrojenie • beton C25/30 (40 m³)</div>
+            <div class="mini"><strong>📸 Zdjęcia z budowy:</strong> 6 nowych ujęć • geo‑tag • czas • podpis brygadzisty</div>
+            <div class="mini"><strong>🧾 Koszty:</strong> faktura betonowni 12 400 zł • status: <span style="color:#22d3ee">oczekuje na akceptację</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="list">
+        <div class="li"><strong>Dashboard</strong> — KPIs (postęp, budżet, najbliższe zadania), wykres salda kredytu i lista priorytetów na 7 dni.</div>
+        <div class="li"><strong>Harmonogram</strong> — oś czasu 24–30 mies., zależności, blokady, przypomnienia, tryb zimowy/letni.</div>
+        <div class="li"><strong>Kalkulator kosztów</strong> — etapy, warianty OSZCZĘDNY/STANDARD/PREMIUM, alerty przekroczeń.</div>
+        <div class="li"><strong>Przyłącza</strong> — rysowanie 2D, studzienki, podział kosztów na 3 działki, generatory wniosków.</div>
+        <div class="li"><strong>Kredyt</strong> — symulator rat i nadpłat, skrócenie okresu, wykresy 15/20/30 lat.</div>
+        <div class="li"><strong>AI Q&A</strong> — odpowiedzi z kontekstem inwestycji, baza błędów wykonawczych i checklisty odbioru.</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title">⚡ Dodatkowe smaczki</div>
+    <div class="grid">
+      <div class="card"><h3>23) Tryb zimowy/letni</h3><p>Automatyczne dopasowanie kolejności i buforów technologicznych do pogody i pory roku.</p></div>
+      <div class="card"><h3>24) Powiadomienia pogodowe</h3><p>Alerty mrozu, upału i opadów z instrukcją: „przykryj fundamenty”, „zraszaj wylewki”.</p></div>
+      <div class="card"><h3>25) Tryb OSZCZĘDNY / STANDARD / PREMIUM</h3><p>Profil, który wpływa na dobór materiałów, tempa i kosztów — z wyliczeniem różnic.</p></div>
+      <div class="card"><h3>26) Generator umów</h3><p>Umowy z karami, gwarancją, harmonogramem i protokołami odbioru (edytowalne PDF/Docx).</p></div>
+      <div class="card"><h3>27) Tryb rodzina/logistyka</h3><p>Kalendarz, podział zadań, harmonogram dostaw i lista przeprowadzki.</p></div>
+      <div class="card"><h3>28) Wirtualny plan budowy 2D</h3><p>Mapa inwestycji + oś czasu — wizualnie widać, co powstaje kiedy i gdzie.</p></div>
+      <div class="card"><h3>29) Tryb „niedzielny budowlaniec”</h3><p>Checklista tygodniowa: co skontrolować na budowie i jak to zrobić.</p></div>
+      <div class="card"><h3>30) Poradnik rozmów z ekipami</h3><p>Jak negocjować, o co pytać, na co uważać – gotowe listy i szablony maili.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title">👷‍♂️👤 Tryb Klient ↔ Ekipa</div>
+    <div class="grid">
+      <div class="card"><h3>Panel Ekipa</h3>
+        <ul>
+          <li>dodawanie <strong>zdjęć z budowy</strong> do konkretnych zadań i etapów</li>
+          <li>status dnia: wykonano / w toku / wstrzymane (z powodem)</li>
+          <li>raport dzienny (czas, materiały, uwagi, lokalizacja)</li>
+          <li>podpis brygadzisty + lista osób na budowie</li>
+        </ul>
+      </div>
+      <div class="card"><h3>Panel Klient</h3>
+        <ul>
+          <li>powiadomienia push z nowymi zdjęciami i raportami</li>
+          <li>oś czasu zdjęć i <strong>historia zmian</strong> na budowie</li>
+          <li>akceptacja/odrzucenie pozycji kosztowych (faktury, zaliczki)</li>
+          <li>komentarze i pytania bezpośrednio do zadania</li>
+        </ul>
+      </div>
+      <div class="card"><h3>Bezpieczeństwo i dowody</h3>
+        <ul>
+          <li>geo‑tag i timestamp dla zdjęć</li>
+          <li>wersjonowanie raportów i kopie w chmurze</li>
+          <li>ślad audytowy dla rozliczeń z ekipą</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <footer>© 2025 Asystent Budowy Domu — koncepcja. Gradient fiolet–cyjan, szkło, animacje ready.</footer>
+</body>
+</html>
